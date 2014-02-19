@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="ja" ng-app>
+<head>
+<meta charset="UTF-8">
+	<title>ToDoリスト</title>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.1/angular.min.js"></script>
+	<script src="myscript.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+	<style>
+		.done-true {
+			color:gray;
+			background:#eee;
+			text-decoration:line-through;
+		}
+	</style>
+	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+</head>
+<body ng-controller="mainCtrl">
+
+	<nav class="navbar navbar-default" role="navigation">
+	<div class="container-fluid">
+
+	    <div class="collapse navbar-collapse navbar-left" id="bs-example-navbar-collapse-1">
+      		<h1 class="nav navbar-nav"><a class="navbar-brand" href="#">ToDoリスト</a></h1>
+    	</div><!-- /.navbar-collapse -->	    
+
+		<div class="navbar-header input-group">
+			<form ng-submit="addNew()" class="navbar-form navbar-left" role="form">
+		    <div class="input-group">
+		      <input type="text" ng-model="newTaskBody" class="form-control" placeholder="ToDo">
+		      <span class="input-group-btn">
+		        <button type="submit" value="add" class="btn btn-primary">追加</button>
+		      </span>
+		    </div><!-- /input-group -->
+			</form>
+			
+	    </div>
+
+	</div><!-- /.container-fluid -->
+	</nav>
+
+<div class="container">
+	<div>
+		<p>
+			完了した数: {{getDoneCount()}} / {{tasks.length}}
+		</p>
+		<div class="row">
+			<div class="col-md-6">
+				<ul class="list-group">
+					<li ng-repeat="task in tasks" class="list-group-item">
+						<label>
+							<input type="checkbox" ng-model="task.done">
+							<span class="done-{{task.done}}">{{task.body}}</span>
+						</label>
+						<a href ng-click="tasks.splice($index,1)" class="badge">&times;</a>
+					</li>
+				</ul>
+			</div>
+		</div><!--row-->
+		<p>
+			<button ng-click="deleteDone()" class="btn btn-default">終わったやつを移動</button>
+		</p>
+		<div class="row">
+			<div class="col-md-6">
+				<ul class="list-group">
+					<li ng-repeat="task in doneTasks" class="list-group-item">
+							{{task.body}} - {{task.doneDate | date: "MM月dd日"}}
+					</li>
+				</ul>
+			</div>
+		</div><!--row-->
+	</div>
+</div>
+<script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+</body>
+</html>
