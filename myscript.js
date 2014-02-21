@@ -30,6 +30,12 @@ var mainCtrl = function($scope, $http) {
 		});
 		return count;
 	}
+	
+	$scope.getProgress = function(){
+		var count = $scope.getDoneCount();
+		var percent = parseInt( ( count / $scope.tasks.length ) * 100 );
+		return percent;
+	}
 
 	$scope.deleteDone = function(){
 		var oldTasks = $scope.tasks;
